@@ -3,7 +3,7 @@ import { addVendor, upload } from "../controllers/vendorController.js";
 
 const router = express.Router();
 
-// Route for adding vendor with image upload
+// Upload vendor with file storage on VPS
 router.post("/add", upload.single("image"), addVendor);
 
 export default router;
