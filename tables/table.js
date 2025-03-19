@@ -15,7 +15,6 @@ const vendorTable = `CREATE TABLE IF NOT EXISTS vendors (
     name VARCHAR(255) NOT NULL,
     contact VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    image VARCHAR(255) DEFAULT https://diwise.cloud/sahara/about.jpg,
     gstnum VARCHAR(255) 
 )`;
 
@@ -30,13 +29,6 @@ const statusTable = `CREATE TABLE IF NOT EXISTS status (
 const ServiceTypeTable = `CREATE TABLE IF NOT EXISTS ServiceType (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL)`;
-
-
-
-
-
-
-
 
 
 

@@ -2,10 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
-import path from "path";
+
 import { checkConnection } from "./db/database.js";
 import { createtable } from "./tables/table.js";
-import vendorRoutes from "./routes/vendorRoutes.js";
+import { clientRoute } from "./routes/clientRoutes.js";
+import { vendorRoute } from './routes/vendorRoutes.js';
+
 
 dotenv.config();
 
@@ -13,10 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use("/client",clientRoute);
+app.use("/vendor",vendorRoute);
 
-app.use("/uploads", express.static(path.join("uploads")));
-
-app.use("/vendors", vendorRoutes);
 
 try {
     await checkConnection();

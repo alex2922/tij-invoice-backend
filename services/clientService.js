@@ -4,25 +4,11 @@ import { database } from "../db/database.js";
 export const AddClients = async (client) => {
   try {
     const query = `INSERT INTO clients (name , contact, email, gstnum, address) VALUES (?, ?, ?, ?, ?)`;
-    const value = [
-      client.name,
-      client.contact,
-      client.email,
-      client.gstnum,
-      client.address,
-    ];
+    const value = [client.name, client.contact, client.email, client.gstnum, client.address];
     const [reponse] = await database.query(query, value);
-    return {
-      success: true,
-      message: "client added successfully",
-      data: reponse.insertId,
-    };
+    return { success: true, message: "client added successfully", data: reponse.insertId };
   } catch (error) {
-    return {
-      success: true,
-      message: "unable to add client",
-      data: error.message,
-    };
+    return { success: true, message: "unable to add client", data: error.message };
   }
 };
 

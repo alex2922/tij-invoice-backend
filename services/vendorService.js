@@ -1,28 +1,37 @@
 import { database } from "../db/database.js";
 
-export const AddVendor = async (vendor, file) => {
-    try {
-        const imagePath = file ? `/uploads/${file.filename}` : null;
+// CREATE (Add Vendor)
 
-        const query = `INSERT INTO vendors (name, contact, email, gstnum, image) VALUES (?, ?, ?, ?, ?)`;
-        const values = [
-            vendor.name,
-            vendor.contact,
-            vendor.email,
-            vendor.gstnum,
-            imagePath, 
-        ];
+export const AddVendor = async (vendor) => {
+    try {
+        const query = `INSERT INTO vendors (name, contact, email, gstnum ) VALUES (?, ?, ?, ?)`;
+        const value = [vendor.name, vendor.contact, vendor.email, vendor.gstnum];
+        const [reponse] = await database.query(query, value);
+        return { success: true, message: "vendor added successfully", data: reponse.insertId };
+    } catch (error) {
+        return { success: false, message: "unable to add vendor", data: error.message };
+    }
+};
+
+
+export const updateVendorDetails = async (id, vendor) => {
+    try {
+        const query = `UPDATE vendors 
+            SET name = ?, contact = ?, email = ?, gstnum = ? 
+            WHERE id = ?`;
+        const values = [vendor.name, vendor.contact, vendor.email, vendor.gstnum, id];
+
         const [response] = await database.query(query, values);
+
         return {
             success: true,
-            message: "Vendor added successfully",
-            data: response.insertId,
+            message: "updated",
+            data: response.insertId,    
         };
-    } catch (error) {
+    } catch (err) {
         return {
             success: false,
-            message: "Unable to add vendor",
-            data: error.message,
+            message: err.message,
         };
     }
 };

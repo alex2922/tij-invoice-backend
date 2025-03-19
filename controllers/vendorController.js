@@ -1,48 +1,115 @@
-import { AddVendor } from "../services/vendorService.js";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
+import { database } from "../db/database.js";
+import { vendorModel } from "./../models/vendorModel.js";
+import { AddVendor, updateVendorDetails } from "./../services/vendorService.js";
 
-// Create an uploads directory if it doesn't exist
-const uploadDir = path.join("uploads");
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Multer Storage Configuration
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir); // Store files in uploads folder
-    },
-    filename: (req, file, cb) => {
-        const timestamp = Date.now();
-        const fileExtension = path.extname(file.originalname);
-        cb(null, `${timestamp}_tij_invoice${fileExtension}`);
-    }
-});
-
-const upload = multer({ storage });
-
-export const addVendor = async (req, res) => {
+export const addVendors = async (req, res) => {
     try {
         const { name, contact, email, gstnum } = req.body;
-        const imagePath = req.file ? `/var/www/images/tij-invoice/${req.file.filename}` : null; // Relative path
-
         if (!name || !contact || !email) {
             return res.status(400).json({ message: "All fields are required" });
         }
-
-        const vendorData = { name, contact, email, gstnum, image: imagePath };
-        const response = await AddVendor(vendorData);
-
+        const data = new vendorModel({ name, contact, email, gstnum });
+        const response = await AddVendor(data);
         if (response.success) {
-            res.status(201).json(response);
+            res.status(200).json(response);
         } else {
             res.status(400).json(response);
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json(error.message);
     }
 };
 
-export { upload };
+export const getAllVendor = async (req, res) => {
+    try {
+        const [response] = await database.query(`SELECT * FROM vendors `);
+        if (response.length === 0) {
+            res.status(400).json({
+                message: "data not found",
+            });
+        }
+        res.status(201).json({
+            status: "success",
+            data: response,
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            data: error.message,
+        });
+    }
+};
+
+export const getVendorById = async (req, res) => {
+    try {
+        const { id } = req.query;
+        if (!id) {
+            res.status(401).json({
+                message: "id required",
+            });
+        }
+        const [response] = await database.query(
+            `SELECT * FROM vendors WHERE id =?`,
+            [id]
+        );
+        if (response.length === 0) {
+            res.status(400).json({
+                message: "data not found",
+            });
+        }
+        res.status(200).json({
+            message: "success",
+            data: response,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+            status: "error",
+        });
+    }
+};
+
+export const deleteVendor = async (req, res) => {
+    try {
+        const { id } = req.query;
+        const [response] = await database.query(
+            `DELETE FROM vendors WHERE id = ?`,
+            [id]
+        );
+        if (response.affectedRows === 0) {
+            res.status(401).json({
+                mesaage: "id not found",
+            });
+        }
+        res.status(201).json({
+            message: "deleteed successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.mesaage,
+            status: "error",
+        });
+    }
+};
+
+export const updateVendor = async (req, res) => {
+    try {
+        const { id } = req.query;
+        const { name, contact, email, gstnum } = req.body;
+
+        if (!id || !name || !contact || !email ) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
+
+        const updateVendors = new vendorModel({ name, contact, email, gstnum });
+        const response = await updateVendorDetails(id, updateVendors);
+
+        if (response.success) {
+            res.status(200).json(response);
+        } else {
+            res.status(400).json(response);
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
+    }
+};
