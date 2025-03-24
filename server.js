@@ -23,7 +23,7 @@ app.use("/client",clientRoute);
 app.use("/vendor",vendorRoute);
 app.use("/modeOfPayment",modeOfPaymentRoute);
 app.use("/masterTable",masterTableRoute);
-app.use("/serviceType",serviceTypeRoute);
+app.use("/service",serviceTypeRoute);
 app.use("/status",statusRoute);
 
 
@@ -33,7 +33,7 @@ try {
     await checkConnection();
     await createtable();
     const server = http.createServer(app);
-    server.listen(6005, () => {
+    server.listen(500, () => {
         console.log("Server is running");
     });
 } catch (error) {

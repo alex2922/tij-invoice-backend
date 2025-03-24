@@ -13,6 +13,7 @@ export const addMasterTable = async (req, res) => {
             systemReference,
             portalOfBooking,
             gstDetails,
+            pnr,
             departureCity,
             arrivalCity,
             serviceType,
@@ -22,14 +23,17 @@ export const addMasterTable = async (req, res) => {
             invoiceAmount,
             modeOfPayment,
             netProfit,
-            status
+            status,
+            refundDate,
+            refundAmount,
+            refundMode,
         } = req.body;
 
         // Validate required fields
         if (!journeyDate || !bookingDate || !invoiceNum || !clientName || !clientPayment || 
-            !systemReference || !portalOfBooking || !gstDetails || !departureCity || 
+            !systemReference || !portalOfBooking || !gstDetails || !pnr || !departureCity || 
             !arrivalCity || !serviceType || !netPurchase || !markupCommission || 
-            !gst || !invoiceAmount || !modeOfPayment || !netProfit || !status) {
+            !gst || !invoiceAmount || !modeOfPayment || !netProfit || !status || !refundDate || !refundAmount || !refundMode) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -42,6 +46,7 @@ export const addMasterTable = async (req, res) => {
             systemReference,
             portalOfBooking,
             gstDetails,
+            pnr,
             departureCity,
             arrivalCity,
             serviceType,
@@ -51,7 +56,10 @@ export const addMasterTable = async (req, res) => {
             invoiceAmount,
             modeOfPayment,
             netProfit,
-            status
+            status,
+            refundDate,
+            refundAmount,
+            refundMode
         });
 
         const response = await addMasterTableService(data);
@@ -102,6 +110,7 @@ export const updateMasterTable = async (req, res) => {
             systemReference,
             portalOfBooking,
             gstDetails,
+            pnr,
             departureCity,
             arrivalCity,
             serviceType,
@@ -111,14 +120,17 @@ export const updateMasterTable = async (req, res) => {
             invoiceAmount,
             modeOfPayment,
             netProfit,
-            status
+            status,
+            refundDate,
+            refundAmount,
+            refundMode
         } = req.body;
 
         // Validate required fields
         if (!journeyDate || !bookingDate || !invoiceNum || !clientName || !clientPayment || 
-            !systemReference || !portalOfBooking || !gstDetails || !departureCity || 
+            !systemReference || !portalOfBooking || !gstDetails || !pnr || !departureCity || 
             !arrivalCity || !serviceType || !netPurchase || !markupCommission || 
-            !gst || !invoiceAmount || !modeOfPayment || !netProfit || !status) {
+            !gst || !invoiceAmount || !modeOfPayment || !netProfit || !status || !refundDate || !refundAmount || !refundMode) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -131,6 +143,7 @@ export const updateMasterTable = async (req, res) => {
             systemReference,
             portalOfBooking,
             gstDetails,
+            pnr,
             departureCity,
             arrivalCity,
             serviceType,
@@ -140,7 +153,10 @@ export const updateMasterTable = async (req, res) => {
             invoiceAmount,
             modeOfPayment,
             netProfit,
-            status
+            status,
+            refundDate,
+            refundAmount,
+            refundMode
         });
 
         const response = await updateMasterTableService(id, data);

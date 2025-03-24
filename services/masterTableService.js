@@ -5,10 +5,10 @@ export const addMasterTableService = async (masterTable) => {
     try {
         const query = `INSERT INTO masterTable (
             journeyDate, bookingDate, invoiceNum, clientName, clientPayment,
-            systemReference, portalOfBooking, gstDetails, departureCity,
+            systemReference, portalOfBooking, gstDetails,pnr, departureCity,
             arrivalCity, serviceType, netPurchase, markupCommission,
             gst, invoiceAmount, modeOfPayment, netProfit, status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
         const values = [
             masterTable.journeyDate,
@@ -19,6 +19,7 @@ export const addMasterTableService = async (masterTable) => {
             masterTable.systemReference,
             masterTable.portalOfBooking,
             masterTable.gstDetails,
+            masterTable.pnr,
             masterTable.departureCity,
             masterTable.arrivalCity,
             masterTable.serviceType,
@@ -28,7 +29,10 @@ export const addMasterTableService = async (masterTable) => {
             masterTable.invoiceAmount,
             masterTable.modeOfPayment,
             masterTable.netProfit,
-            masterTable.status
+            masterTable.status,
+            masterTable.refundDate,
+            masterTable.refundAmount,
+            masterTable.refundMode,
         ];
 
         const [response] = await database.query(query, values);
@@ -96,10 +100,15 @@ export const updateMasterTableService = async (id, masterTable) => {
             netPurchase = ?, 
             markupCommission = ?,
             gst = ?, 
+            pnr = ?,
             invoiceAmount = ?, 
             modeOfPayment = ?, 
             netProfit = ?, 
-            status = ?
+            status = ?,
+            refundDate = ?,
+            refundAmount = ?,
+            refundMode = ?
+
         WHERE id = ?`;
 
         const values = [
@@ -111,6 +120,7 @@ export const updateMasterTableService = async (id, masterTable) => {
             masterTable.systemReference,
             masterTable.portalOfBooking,
             masterTable.gstDetails,
+            masterTable.pnr,
             masterTable.departureCity,
             masterTable.arrivalCity,
             masterTable.serviceType,
@@ -121,6 +131,9 @@ export const updateMasterTableService = async (id, masterTable) => {
             masterTable.modeOfPayment,
             masterTable.netProfit,
             masterTable.status,
+            masterTable.refundDate,
+            masterTable.refundAmount,
+            masterTable.refundMode,
             id
         ];
 

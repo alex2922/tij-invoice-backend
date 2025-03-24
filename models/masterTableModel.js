@@ -1,5 +1,5 @@
-export class masterTableModel{
-    constructor(masterTable){
+export class masterTableModel {
+    constructor(masterTable) {
         this.id = masterTable.id;
         this.entryCreatedOn = masterTable.entryCreatedOn;
         this.journeyDate = masterTable.journeyDate;
@@ -10,6 +10,7 @@ export class masterTableModel{
         this.systemReference = masterTable.systemReference;
         this.portalOfBooking = masterTable.portalOfBooking;
         this.gstDetails = masterTable.gstDetails;
+        this.pnr = masterTable.pnr;
         this.departureCity = masterTable.departureCity;
         this.arrivalCity = masterTable.arrivalCity;
         this.serviceType = masterTable.serviceType;
@@ -20,6 +21,9 @@ export class masterTableModel{
         this.modeOfPayment = masterTable.modeOfPayment;
         this.netProfit = masterTable.netProfit;
         this.status = masterTable.status;
+        this.refundDate = masterTable.refundDate;
+        this.refundAmount = masterTable.refundAmount;
+        this.refundMode = masterTable.refundMode;
     }
 }
 
