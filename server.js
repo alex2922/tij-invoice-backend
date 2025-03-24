@@ -8,6 +8,9 @@ import { createtable } from "./tables/table.js";
 import { clientRoute } from "./routes/clientRoutes.js";
 import { vendorRoute } from './routes/vendorRoutes.js';
 import { modeOfPaymentRoute } from './routes/modeOfPaymentRoute.js';
+import { masterTableRoute } from './routes/masterTableRoutes.js';
+import { serviceTypeRoute } from './routes/serviceTypeRoutes.js';
+import { statusRoute } from './routes/statusRoutes.js';
 
 
 dotenv.config();
@@ -19,6 +22,10 @@ app.use(cors());
 app.use("/client",clientRoute);
 app.use("/vendor",vendorRoute);
 app.use("/modeOfPayment",modeOfPaymentRoute);
+app.use("/masterTable",masterTableRoute);
+app.use("/serviceType",serviceTypeRoute);
+app.use("/status",statusRoute);
+
 
 
 
@@ -26,8 +33,8 @@ try {
     await checkConnection();
     await createtable();
     const server = http.createServer(app);
-    server.listen(8000, () => {
-        console.log("Server is running on port 8000");
+    server.listen(6005, () => {
+        console.log("Server is running");
     });
 } catch (error) {
     console.error("Error starting server:", error);
