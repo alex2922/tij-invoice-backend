@@ -7,6 +7,7 @@ import { checkConnection } from "./db/database.js";
 import { createtable } from "./tables/table.js";
 import { clientRoute } from "./routes/clientRoutes.js";
 import { vendorRoute } from './routes/vendorRoutes.js';
+import { modeOfPaymentRoute } from './routes/modeOfPaymentRoute.js';
 
 
 dotenv.config();
@@ -17,6 +18,8 @@ app.use(cors());
 
 app.use("/client",clientRoute);
 app.use("/vendor",vendorRoute);
+app.use("/modeOfPayment",modeOfPaymentRoute);
+
 
 
 try {

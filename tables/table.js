@@ -30,10 +30,31 @@ const ServiceTypeTable = `CREATE TABLE IF NOT EXISTS ServiceType (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL)`;
 
+const masterTable = `CREATE TABLE IF NOT EXISTS masterTable (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    entryCreatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    journeyDate DATE NOT NULL,
+    bookingDate DATE NOT NULL,
+    invoiceNum  INT NOT NULL,
+    clientName VARCHAR(255) NOT NULL,
+    clientPayment VARCHAR(255) NOT NULL,
+    systemReference VARCHAR(255) NOT NULL,
+    portalOfBooking VARCHAR(255) NOT NULL,
+    gstDetails VARCHAR(255) NOT NULL,
+    departureCity VARCHAR(255) NOT NULL,
+    arrivalCity VARCHAR(255) NOT NULL,
+    serviceType VARCHAR(255) NOT NULL,
+    netPurchase DECIMAL(10,2) NOT NULL,
+    markupCommission DECIMAL(10,2) NOT NULL,
+    gst DECIMAL(10,2) NOT NULL,
+    invoiceAmount DECIMAL(10,2) NOT NULL,
+    modeOfPayment VARCHAR(255) NOT NULL,
+    netProfit DECIMAL(10,2) NOT NULL,
+    status VARCHAR(255) NOT NULL
+)`;
 
 
-
-    // tables
+// tables
 const table = async (table, query) => {
   try {
     await database.query(query);
@@ -50,7 +71,7 @@ const createtable = () => {
   table("modeOfPayment", modeOfPaymentTable);
   table("status", statusTable);
   table("serviceType", ServiceTypeTable);
-  table("vendors", vendorTable);
+  table("masterTable", masterTable);
 
   console.log("create all table");
 };

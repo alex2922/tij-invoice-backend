@@ -6,10 +6,10 @@ import {addClients, deleteClient, getAllClient, getClientById, updateClient } fr
 
 export const clientRoute = express.Router();
 
-clientRoute.post("/addClients",addClients);
-clientRoute.get("/getAllClient",getAllClient);
-clientRoute.get("/getClientById",getClientById);
-clientRoute.put("/updateClient",updateClient);
-clientRoute.delete("/deleteClient",deleteClient);
+clientRoute.post("/add",addClients);
+clientRoute.get("/get",getAllClient);
+clientRoute.get("/getById",getClientById);
+clientRoute.put("/update",updateClient);
+clientRoute.delete("/delete",deleteClient);
 
 

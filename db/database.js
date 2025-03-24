@@ -16,12 +16,13 @@ const checkConnection = async ()=>{
     let connection;
     try {
         connection = await database.getConnection();
-
         console.log("database connected");
-
-        connection.commit();
+        return true;
     } catch (error) {
-        connection.release();
+        console.error("Database connection error:", error);
+        throw error;
+    } finally {
+        if (connection) connection.release();
     }
 }
 
