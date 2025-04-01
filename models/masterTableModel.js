@@ -1,6 +1,6 @@
 export class masterTableModel {
     constructor(masterTable) {
-        this.id = masterTable.id;
+    
         this.entryCreatedOn = masterTable.entryCreatedOn;
         this.journeyDate = masterTable.journeyDate;
         this.bookingDate = masterTable.bookingDate;

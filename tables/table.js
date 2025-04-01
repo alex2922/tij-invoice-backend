@@ -60,6 +60,15 @@ const masterTable = `CREATE TABLE IF NOT EXISTS masterTable (
 )`;
 
 
+const userTable = `CREATE TABLE IF NOT EXISTS user (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL ,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`;
+
+
 // tables
 const table = async (table, query) => {
   try {
@@ -78,6 +87,7 @@ const createtable = () => {
   table("status", statusTable);
   table("serviceType", ServiceTypeTable);
   table("masterTable", masterTable);
+  table("user", userTable);
 
   console.log("create all table");
 };

@@ -11,6 +11,7 @@ import { modeOfPaymentRoute } from './routes/modeOfPaymentRoute.js';
 import { masterTableRoute } from './routes/masterTableRoutes.js';
 import { serviceTypeRoute } from './routes/serviceTypeRoutes.js';
 import { statusRoute } from './routes/statusRoutes.js';
+import { userRoute } from './routes/userRoutes.js';
 
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/modeOfPayment",modeOfPaymentRoute);
 app.use("/masterTable",masterTableRoute);
 app.use("/service",serviceTypeRoute);
 app.use("/status",statusRoute);
+app.use("/user",userRoute)
 
 
 
